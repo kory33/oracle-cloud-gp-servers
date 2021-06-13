@@ -1,0 +1,17 @@
+version: '3.9'
+
+volumes:
+  cloudflared-home:
+
+services:
+  cloudflared-kory33-net:
+    build:
+      context: ./cloudflared
+      dockerfile: ./Dockerfile
+    image: local-cloudflared-image
+    volumes:
+      - cloudflared-home:/root
+  intercom:
+    image: nginx:latest
+    ports:
+      - 80:80

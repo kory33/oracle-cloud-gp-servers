@@ -1,0 +1,4 @@
+ingress:
+  - hostname: intercom.kory33.net
+    service: http://intercom:80
+  - service: http_status:404
