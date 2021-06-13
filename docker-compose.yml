@@ -15,3 +15,5 @@ services:
     image: nginx:latest
     ports:
       - 80:80
+    environment:
+      INTERCOM_DISCORD_BOT_TOKEN: ${INTERCOM_DISCORD_BOT_TOKEN}
