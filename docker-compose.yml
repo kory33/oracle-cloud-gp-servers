@@ -12,8 +12,10 @@ services:
     volumes:
       - cloudflared-home:/root
   intercom:
-    image: nginx:latest
-    ports:
-      - 80:80
+    build:
+      context: ./intercom
+      dockerfile: ./Dockerfile
+    image: local-intercom-server
     environment:
-      INTERCOM_DISCORD_BOT_TOKEN: ${INTERCOM_DISCORD_BOT_TOKEN}
+      INTERCOM_DISCORD_WEBHOOK_URL: ${INTERCOM_DISCORD_WEBHOOK_URL}
+      INTERCOM_REQUEST_SECRET: ${INTERCOM_REQUEST_SECRET}
