@@ -9,7 +9,11 @@ sudo apt update && sudo apt upgrade -y
 
 # region install toolchains
 sudo apt-get remove -y docker docker-engine docker.io containerd runc || true
-sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+sudo apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  curl gnupg lsb-release \
+  tmux
 # endregion
 
 # region install docker
