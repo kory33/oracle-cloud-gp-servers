@@ -4,31 +4,47 @@ set -e
 domain=kory33.net
 tunnel_name=kory33-net-generic
 
-# login if cert.pem not found
-if [ ! -f ~/.cloudflared/cert.pem ]; then
-  cloudflared tunnel login
-fi
-
-# ensure that the tunnel exists
-cloudflared tunnel create $tunnel_name || true
-
-# the format output by `cloudflared tunnel list --output yaml` is 
+# list tunnel information in yaml format.
+# A typical output is 
 # - id: ********-****-****-****-************
 #   name: ********
 #   createdat: ****-**-**T**:**:**.******Z
 #   deletedat: 0001-01-01T00:00:00Z
 #   connections: []
-tunnel_id=$(
-    cloudflared tunnel list \
-      --name kory33-net-generic \
-      --output yaml \
-      | yq eval '.[0].id' -
-)
+list_tunnel_as_yaml () {
+  cloudflared tunnel list --name $tunnel_name --output yaml
+}
 
-# route all domains in ingress rules specified in tunnel-confing.yaml
-yq e ".ingress.[].hostname | select(. != null)" \
-  /tmp/tunnel-config.yaml \
-  | xargs cloudflared tunnel route dns $tunnel_id
+recreate_tunnel () {
+  cloudflared tunnel cleanup $tunnel_name
+  cloudflared tunnel delete $tunnel_name || true
+  cloudflared tunnel create $tunnel_name
+}
+
+get_available_tunnel_id () {
+  list_tunnel_as_yaml | yq eval '.[0].id' -
+}
+
+ensure_tunnel_exists_and_we_have_access () {
+  # recreate tunnel if we don't have a tunnel or the credential to the tunnel
+  if [ $(list_tunnel_as_yaml | yq eval '. | length' -) == "0" ] ||\
+     [ ! -f "/root/.cloudflared/$(get_available_tunnel_id).json" ]; then
+    recreate_tunnel
+  fi
+}
+
+# login if cert.pem not found
+if [ ! -f ~/.cloudflared/cert.pem ]; then
+  cloudflared tunnel login
+fi
+
+ensure_tunnel_exists_and_we_have_access
+
+tunnel_id=$(get_available_tunnel_id)
+
+# re-route all domains in ingress-rules to this tunnel
+yq e ".ingress.[].hostname | select(. != null)" /tmp/tunnel-config.yaml \
+  | xargs -n 1 cloudflared tunnel route --overwrite-dns dns $tunnel_id $hostname
 
 # start the tunnel
 cloudflared tunnel --config /tmp/tunnel-config.yaml --no-autoupdate run $tunnel_id
