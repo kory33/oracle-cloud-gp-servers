@@ -36,6 +36,5 @@ RUN mkdir -p /tmp
 
 COPY ./entrypoint.sh /tmp/entrypoint.sh
 COPY ./tunnel-config.yaml /tmp/tunnel-config.yaml
-COPY ./reroute.sh /tmp/reroute.sh
 
 ENTRYPOINT [ "/tmp/entrypoint.sh" ]
