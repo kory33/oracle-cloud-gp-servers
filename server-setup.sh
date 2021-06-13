@@ -27,6 +27,6 @@ sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli container
 # endregion
 
 # region install docker-compose
-sudo apt install python3-pip
+sudo apt install -y python3-pip
 yes | sudo pip install docker-compose
 # endregion
