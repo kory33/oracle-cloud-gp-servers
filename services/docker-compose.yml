@@ -16,6 +16,5 @@ services:
       context: ./intercom
       dockerfile: ./Dockerfile
     image: local-intercom-server
-    environment:
-      INTERCOM_DISCORD_WEBHOOK_URL: ${INTERCOM_DISCORD_WEBHOOK_URL}
-      INTERCOM_REQUEST_SECRET: ${INTERCOM_REQUEST_SECRET}
+    env_file:
+      - intercom.env
