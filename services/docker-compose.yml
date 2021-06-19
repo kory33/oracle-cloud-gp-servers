@@ -11,6 +11,7 @@ services:
     image: local-cloudflared-image
     volumes:
       - cloudflared-home:/root
+    restart: always
   intercom:
     build:
       context: ./intercom
@@ -18,3 +19,4 @@ services:
     image: local-intercom-server
     env_file:
       - intercom.env
+    restart: always
