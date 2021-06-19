@@ -1,4 +1,6 @@
 ingress:
   - hostname: intercom.kory33.net
     service: http://intercom:8080
+  - hostname: portainer.kory33.net
+    service: http://portainer:9000
   - service: http_status:404

@@ -2,6 +2,7 @@ version: '3.9'
 
 volumes:
   cloudflared-home:
+  portainer_data:
 
 services:
   cloudflared-kory33-net:
@@ -12,6 +13,14 @@ services:
     volumes:
       - cloudflared-home:/root
     restart: always
+
+  portainer:
+    image: portainer/portainer-ce:2.5.1
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
   intercom:
     build:
       context: ./intercom
