@@ -3,8 +3,12 @@ version: '3.9'
 volumes:
   cloudflared-home:
   portainer_data:
+  grafana_data:
+  prometheus_data:
 
 services:
+  #=============================
+  # ルーティング
   cloudflared-kory33-net:
     build:
       context: ./cloudflared
@@ -14,12 +18,8 @@ services:
       - cloudflared-home:/root
     restart: always
 
-  portainer:
-    image: portainer/portainer-ce:2.5.1
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+  #=============================
+  # サービス
 
   intercom:
     build:
@@ -29,3 +29,41 @@ services:
     env_file:
       - intercom.env
     restart: always
+
+  #=============================
+  # 監視系
+
+  portainer:
+    image: portainer/portainer-ce:2.5.1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: always
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:v1.1.2
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: always
+    volumes:
+      - '/:/host:ro,rslave'
+
+  prometheus:
+    build:
+      context: ./prometheus
+      dockerfile: ./Dockerfile
+    image: local-prometheus-image
+    ports:
+      - 13754:9090
+    restart: always
+    command:
+      - '--config.file=/tmp/prometheus.yml'
+    volumes:
+      - prometheus_data:/prometheus-data
+
+  grafana:
+    image: grafana/grafana:8.0.3
+    restart: always
+    volumes:
+      - grafana_data:/var/lib/grafana

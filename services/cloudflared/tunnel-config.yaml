@@ -3,4 +3,6 @@ ingress:
     service: http://intercom:8080
   - hostname: portainer.kory33.net
     service: http://portainer:9000
+  - hostname: grafana.kory33.net
+    service: http://grafana:3000
   - service: http_status:404
