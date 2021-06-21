@@ -49,6 +49,11 @@ services:
     volumes:
       - '/:/host:ro,rslave'
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.19.0
+    volumes:
+      - ./blackbox-exporter/config.yml:/etc/blackbox_exporter/config.yml
+
   prometheus:
     build:
       context: ./prometheus
@@ -60,7 +65,7 @@ services:
     command:
       - '--config.file=/tmp/prometheus.yml'
     volumes:
-      - prometheus_data:/prometheus-data
+      - prometheus_data:/etc/prometheus/data
 
   grafana:
     image: grafana/grafana:8.0.3
