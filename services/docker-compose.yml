@@ -65,7 +65,7 @@ services:
     command:
       - '--config.file=/tmp/prometheus.yml'
     volumes:
-      - prometheus_data:/prometheus/data
+      - prometheus_data:/prometheus
 
   grafana:
     image: grafana/grafana:8.0.3
