@@ -1,8 +1,8 @@
 modules:
-  ipv4_http_204:
+  ipv4_http_401:
     prober: http
     http:
-      valid_status_codes: [204]
+      valid_status_codes: [401]
       # By default, docker only supports ipv4.
       # If ipv6 must be enabled for some reason, see https://docs.docker.com/config/daemon/ipv6/
       preferred_ip_protocol: "ip4"
