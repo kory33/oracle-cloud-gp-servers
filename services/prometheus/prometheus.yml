@@ -6,6 +6,10 @@ scrape_configs:
     static_configs:
       - targets:
         - 'node-exporter:9100'
+  - job_name: 'intercom_server'
+    static_configs:
+      - targets:
+        - 'intercom:8081'
   - job_name: 'intercom_blackbox_http'
     metrics_path: /probe
     relabel_configs:
