@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  controller:
+    build:
+      context: ./controller
+      dockerfile: ./Dockerfile
+    image: oracle-cloud-gp-servers-controller
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/github/controller-trigger/:/root/controller-trigger/
+      - /home/ubuntu/oracle-cloud-gp-servers/:/root/servers-repo/
+      # for node-exporter
+      - '/:/host:ro,rslave'
+    pid: host
+    restart: always
