@@ -19,7 +19,7 @@ The controller container acts as a gateway for restarting & updating service con
 cat /etc/ssh/ssh_host_ed25519_key.pub | grep -oE "ssh-ed25519 [^ ]*"
 
 # add this output to the secret CONTROLLER_AUTH_KEY
-cat /home/github/.ssh/id_ed25519
+sudo cat /home/github/.ssh/id_ed25519
 
 # once seen, remove the secret key
 rm /home/github/.ssh/id_ed25519
