@@ -5,7 +5,6 @@ set -e
 # - installs all the required toolchains
 # - clones the repository https://github.com/kory33/oracle-cloud-gp-servers
 #   into /home/ubuntu/oracle-cloud-gp-servers if not already done.
-#   The clone is done via HTTP because the controller container has to pull the repository.
 # - start the service controller,
 #   which is responsible for listening to signals from GitHub actions for auto-deployments
 
@@ -60,12 +59,11 @@ if [[ ! -e authorized_keys ]]; then
 fi
 
 # clone the repository if not already done
-git clone \
-  https://github.com/kory33/oracle-cloud-gp-servers \
+git clone https://github.com/kory33/oracle-cloud-gp-servers \
   /home/ubuntu/oracle-cloud-gp-servers || true
 
 cd /home/ubuntu/oracle-cloud-gp-servers && git pull
 
-sudo util/restart.sh controller
+tmux new-session -d "sudo util/restart.sh controller"
 
 # endregion

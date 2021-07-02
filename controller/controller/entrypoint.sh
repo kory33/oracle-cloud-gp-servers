@@ -11,7 +11,7 @@ restart_services () {
   cd /root/servers-repo
   git pull
   echo "Restarting services..."
-  util/restart.sh services
+  util/restart.sh services -d
   echo "Restarted services!"
 }
 
@@ -24,6 +24,13 @@ main () {
     sleep 1
   done
 }
+
+# clone the repository if not already done
+git clone https://github.com/kory33/oracle-cloud-gp-servers \
+  /root/servers-repo || true
+
+# copy env files
+cp /tmp/services/intercom.env /root/servers-repo/services/intercom.env
 
 restart_services | print_lines_with_date
 main | print_lines_with_date

@@ -8,4 +8,4 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 docker-compose pull && docker-compose build
-docker-compose down && docker-compose up --force-recreate -d
+docker-compose down && docker-compose up --force-recreate $2
