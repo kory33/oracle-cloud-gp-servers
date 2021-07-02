@@ -22,7 +22,7 @@ cat /etc/ssh/ssh_host_ed25519_key.pub | grep -oE "ssh-ed25519 [^ ]*"
 sudo cat /home/github/.ssh/id_ed25519
 
 # once seen, remove the secret key
-rm /home/github/.ssh/id_ed25519
+sudo rm /home/github/.ssh/id_ed25519
 ```
 
 where the secrets are to be added from [here](https://github.com/kory33/oracle-cloud-gp-servers/settings/secrets/actions/new).
