@@ -14,7 +14,4 @@ services:
       - /home/github/controller-trigger/:/root/controller-trigger/
       - servers_repository:/root/servers-repo/
       - /home/ubuntu/oracle-cloud-gp-servers/services/intercom.env:/tmp/services/intercom.env
-      # for node-exporter
-      - '/:/host:ro,rslave'
-    pid: host
     restart: always

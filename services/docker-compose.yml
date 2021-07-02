@@ -47,7 +47,7 @@ services:
     pid: host
     restart: always
     volumes:
-      - '/host:/host:ro,rslave'
+      - '/:/host:ro,rslave'
 
   blackbox-exporter:
     build:
