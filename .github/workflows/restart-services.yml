@@ -16,7 +16,7 @@ jobs:
       with:
         host: ${{ secrets.CONTROLLER_HOST }}
         key: ${{ secrets.CONTROLLER_AUTH_KEY }}
-        fingerprint: ${{ secrets.CONTROLLER_HOST_KEY }}
+        fingerprint: ${{ secrets.CONTROLLER_HOST_KEY_FINGERPRINT }}
         username: github
         port: 22
         script: touch /home/github/controller-trigger/restart-services
