@@ -15,9 +15,6 @@ Run the following:
 The controller container acts as a gateway for restarting & updating service containers. To allow GitHub Actions to update services, 
 
 ```bash
-# add this output to the secret CONTROLLER_HOST_KEY
-cat /etc/ssh/ssh_host_ed25519_key.pub | grep -oE "ssh-ed25519 [^ ]*"
-
 # add this output to the secret CONTROLLER_AUTH_KEY
 sudo cat /home/github/.ssh/id_ed25519
 
