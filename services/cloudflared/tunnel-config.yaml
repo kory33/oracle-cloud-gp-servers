@@ -5,6 +5,4 @@ ingress:
     service: http://portainer:9000
   - hostname: grafana.kory33.net
     service: http://grafana:3000
-  - hostname: test-tcp-grafana.kory33.net
-    service: tcp://grafana:3000
   - service: http_status:404
