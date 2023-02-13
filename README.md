@@ -1,3 +1,9 @@
+# DEPRECATED
+
+Superceded by https://github.com/kory33/kory33.net-infra.
+
+# Old README
+
 This repository contains all the information required to construct services rooted at kory33.net.
 
 ## Setup
